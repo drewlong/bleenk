@@ -23,12 +23,12 @@ export default class Router extends Component{
           <div>
             <Route exact path="/login" component={Auth} />
             <Route exact path="/register" component={Auth} />
-            <Route exact path="/landing" component={Landing} />
+            <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard/:section" render={(props) => (
               cookie.get("bleenk_token") ? (
                 <Dashboard {...props}/>
               ) : (
-                <Redirect to="/"/>
+                <Redirect to="/login"/>
               )
             )}/>
           </div>

@@ -7,8 +7,10 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "bitcluster": "^2.0.1",
+    "axios": "^0.21.1",
+    "crypto-js": "^4.0.0",
     "react": "^17.0.1",
+    "react-device-detect": "^1.15.0",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.3.1",
     "react-router-dom": "^5.2.0",
@@ -21,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && /code/update_bleenk.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

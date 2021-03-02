@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import {BrowserRouter, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
 import Cookie from 'universal-cookie'
+import {isMobile} from 'react-device-detect'
 
 // Route Components
-import Auth from './auth/main'
-import Dashboard from './dashboard/main'
+import Link from './link/main'
 import Landing from './landing/main'
+import LandingMobile from './landing/mobile'
+import NotFound from './404.jsx'
 
 const cookie = new Cookie()
 
@@ -20,18 +22,23 @@ export default class Router extends Component{
     return(
       <div>
         <BrowserRouter>
-          <div>
-            <Route exact path="/login" component={Auth} />
-            <Route exact path="/register" component={Auth} />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/dashboard/:section" render={(props) => (
-              cookie.get("bleenk_token") ? (
-                <Dashboard {...props}/>
-              ) : (
-                <Redirect to="/login"/>
-              )
-            )}/>
-          </div>
+            {isMobile &&
+              <Switch>
+              <Route exact path="/" component={LandingMobile} />
+              <Route exact path="/l/:slug" render={(props) => (
+                  <Link {...props}/>
+                )}/>
+                <Route path="*" component={NotFound}/>
+              </Switch>
+            }{!isMobile &&
+              <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/l/:slug" render={(props) => (
+                  <Link {...props}/>
+                )}/>
+                <Route path="*" component={NotFound}/>
+              </Switch>
+            }
         </BrowserRouter>
       </div>
     )
